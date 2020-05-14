@@ -4,7 +4,7 @@ import (
 	"sync"
 
 	"github.com/siddontang/go-log/log"
-	"github.com/siddontang/go-mysql/mysql"
+	"github.com/snacker81/go-mysql/mysql"
 )
 
 type masterInfo struct {
