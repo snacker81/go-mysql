@@ -78,15 +78,12 @@ func NewTLSConn(conn net.Conn) *Conn {
 }
 
 func (c *Conn) ReadPacket() ([]byte, error) {
-	// Here we use `sync.Pool` to avoid allocate/destroy buffers frequently.
-	buf := c.bufPool.Get()
-	defer c.bufPool.Return(buf)
+	var buf bytes.Buffer
 
-	if err := c.ReadPacketTo(buf); err != nil {
+	if err := c.ReadPacketTo(&buf); err != nil {
 		return nil, errors.Trace(err)
 	} else {
-		result := append([]byte{}, buf.Bytes()...)
-		return result, nil
+		return buf.Bytes(), nil
 	}
 }
 
